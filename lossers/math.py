@@ -13,4 +13,4 @@ def mse_loss(input, target, **kwargs):
     return F_.mse_loss(input, target, **kwargs)
 
 def l2_loss(input, target, **kwargs):
-    return F_.l2_loss(input, target, **kwargs)
+    return F_.mse_loss(input, target, **kwargs)
