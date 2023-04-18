@@ -68,7 +68,7 @@ class LPIPS(nn.Module):
         val = 0
         for l in range(self.L):
             val += res[l]
-        
+
         if(retPerLayer):
             return (val, res)
         else:

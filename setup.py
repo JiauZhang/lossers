@@ -4,7 +4,7 @@ setup(
   name = 'lossers',
   packages = find_packages(exclude=['examples']),
   package_data={'': ['*/vgg_v0.1.pth']},
-  version = '0.0.4',
+  version = '0.0.5',
   license='MIT',
   description = 'ML/DL Loss Function',
   author = 'JiauZhang',
