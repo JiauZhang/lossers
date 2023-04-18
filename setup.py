@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
   name = 'lossers',
   packages = find_packages(),
-  version = '0.0.2',
+  version = '0.0.3',
   license='MIT',
   description = 'ML Loss Function',
   author = 'JiauZhang',
