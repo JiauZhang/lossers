@@ -1,9 +1,14 @@
 name: Publish Python 🐍 distributions 📦 to PyPI
 
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 on:
   push:
+    # Sequence of patterns matched against refs/heads
     branches:
       - main
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - v*
 
 jobs:
   build-n-publish:
@@ -33,7 +38,7 @@ jobs:
         .
 
     - name: Publish distribution 📦 to PyPI
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
