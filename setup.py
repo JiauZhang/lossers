@@ -20,7 +20,7 @@ setup(
     install_requires=[
     ],
     classifiers=[
-        'Intended Audience :: AI Algorithm Engineer',
+        'Intended Audience :: Developers',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.8',
