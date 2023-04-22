@@ -3,12 +3,9 @@ import torch
 from torchvision import models as tv
 
 class VGG16(torch.nn.Module):
-    def __init__(self, requires_grad=False, pretrained=True, cache_dir=None):
+    def __init__(self, requires_grad=False, pretrained=True):
         super(VGG16, self).__init__()
-        _dir = torch.hub.get_dir()
-        torch.hub.set_dir(cache_dir)
         vgg_pretrained_features = tv.vgg16(pretrained=pretrained).features
-        torch.hub.set_dir(_dir)
         self.slice1 = torch.nn.Sequential()
         self.slice2 = torch.nn.Sequential()
         self.slice3 = torch.nn.Sequential()

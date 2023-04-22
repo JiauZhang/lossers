@@ -28,7 +28,10 @@ class LPIPS(nn.Module):
             raise RuntimeError('currently only vgg16 supported!')
         self.L = len(self.chns)
 
-        self.net = net_type(pretrained=pretrained, cache_dir=cache_dir)
+        _dir = torch.hub.get_dir()
+        if cache_dir is not None: torch.hub.set_dir(cache_dir)
+        self.net = net_type(pretrained=pretrained)
+        torch.hub.set_dir(_dir)
         self.lin0 = NetLinLayer(self.chns[0], use_dropout=use_dropout)
         self.lin1 = NetLinLayer(self.chns[1], use_dropout=use_dropout)
         self.lin2 = NetLinLayer(self.chns[2], use_dropout=use_dropout)
