@@ -1,8 +1,9 @@
 import torch
+from torch.nn import functional as F_
 
 # from transformers/models/clip/modeling_clip.py
 def contrastive_loss(logits: torch.Tensor) -> torch.Tensor:
-    return torch.nn.functional.cross_entropy(logits, torch.arange(len(logits), device=logits.device))
+    return F_.cross_entropy(logits, torch.arange(len(logits), device=logits.device))
 
 def clip_loss(similarity: torch.Tensor) -> torch.Tensor:
     caption_loss = contrastive_loss(similarity)
