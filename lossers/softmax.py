@@ -17,7 +17,7 @@ class AMSoftmax(nn.Module):
     def forward(self, logits, labels):
         cosine = F_.linear(F_.normalize(logits), F_.normalize(self.weight))
         labels_view = labels.view(-1, 1)
-        delta_cosine = torch.zeros(cosine.size()).scatter_(1, labels_view, self.m)
+        delta_cosine = torch.zeros_like(cosine).scatter_(1, labels_view, self.m)
         cosine_m = cosine - delta_cosine
         cosine_ms = self.s * cosine_m
         loss = F_.cross_entropy(cosine_ms, labels)
