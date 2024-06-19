@@ -30,31 +30,6 @@ $$
 \varphi (E[X]) \le E[\varphi (X)]
 $$
 
-### 高斯分布
-$$
-f(x) = \frac {1} {\sqrt{2 \pi \sigma^2}} e^{-\frac {(x-\mu)^2} {2 \sigma^2}}
-$$
-
-#### 高斯分布的均值
-$$
-\begin{aligned}
-E(x) &= \int_{-\infty}^{+\infty} xf(x)dx = \int_{-\infty}^{+\infty} x\frac {1} {\sqrt{2 \pi \sigma^2}} e^{-\frac {(x-\mu)^2} {2 \sigma^2}}dx \\
-&= \int_{-\infty}^{+\infty} (x-\mu)\frac {1} {\sqrt{2 \pi \sigma^2}} e^{-\frac {(x-\mu)^2} {2 \sigma^2}}dx + \mu \int_{-\infty}^{+\infty} \frac {1} {\sqrt{2 \pi \sigma^2}} e^{-\frac {(x-\mu)^2} {2 \sigma^2}}dx \\
-&= \mu
-\end{aligned}
-$$
-
-由于高斯分布$f(x)$是一个关于$(x-\mu)$偶函数，而公式中第一项$(x-\mu)$是一个奇函数，因此第一项积分为$0$；第二项中$\mu$与积分无关，故概率密度函数的积分为$1$。
-
-#### 高斯分布的方差
-$$
-\begin{aligned}
-Var(x) &= E((x-E(x))^2) =\int_{-\infty}^{+\infty} (x-\mu)^2 f(x)dx = \int_{-\infty}^{+\infty} (x-\mu)^2 \frac {1} {\sqrt{2 \pi \sigma^2}} e^{-\frac {(x-\mu)^2} {2 \sigma^2}}dx \\
-&= \int_{-\infty}^{+\infty} y^2 \frac {1} {\sqrt{2 \pi \sigma^2}} e^{-\frac {y^2} {2 \sigma^2}}dy \\
-&= \sigma^2
-\end{aligned}
-$$
-
 ### 相对熵(Relative entropy) or KL散度(Kullback-Leibler Divergence)
 $p(x)$是目标分布，$q(x)$是模型预测分布
 
@@ -99,6 +74,45 @@ D_{KL}(p||q) &= \int_{-\infty}^{+\infty} p(x) log \frac {p(x)} {q(x)} \\
     \frac {(x-\mu_1)^2} {2 \sigma_1^2} +
     log \bigg( \frac {\sigma_2} {\sigma_1} \bigg)
 \bigg] \\
-&=
+&= log \bigg( \frac {\sigma_2} {\sigma_1} \bigg)
++ \int_{-\infty}^{+\infty} p(x)\frac {(x-\mu_2)^2} {2 \sigma_2^2}dx
+- \int_{-\infty}^{+\infty} p(x)\frac {(x-\mu_1)^2} {2 \sigma_1^2}dx 
 \end{aligned}
+$$
+
+其中
+
+$$
+\begin{aligned}
+\int_{-\infty}^{+\infty} p(x)\frac {(x-\mu_1)^2} {2 \sigma_1^2}dx &= \int_{-\infty}^{+\infty} \frac {(x-\mu_1)^2} {2 \sigma_1^2} \frac {1} {\sqrt{2 \pi \sigma_1^2}} e^{-\frac {(x-\mu_1)^2} {2 \sigma_1^2}}dx \\
+&= \frac {1} {2\sigma_1^3\sqrt{2\pi}} \int_{-\infty}^{+\infty} (x_1-\mu_1)^2e^{-\frac {(x-\mu_1)^2} {2 \sigma_1^2}}dx \\
+&= \frac {1} {2\sigma_1^3\sqrt{2\pi}} \int_{-\infty}^{+\infty} y^2e^{-\frac {y^2} {2 \sigma_1^2}}dy \\
+&= \frac {1} {2\sigma_1^3\sqrt{2\pi}} \times \frac {(\sqrt{2}\sigma_1)^3} {2} \sqrt{\pi} \\
+&= \frac {1} {2}
+\end{aligned}
+$$
+
+另外
+
+$$
+\begin{aligned}
+\int_{-\infty}^{+\infty} p(x)\frac {(x-\mu_2)^2} {2 \sigma_2^2}dx
+&= \frac {1} {2\sigma_2^2} \int_{-\infty}^{+\infty} p(x)(x^2-2x\mu_2+\mu_2^2-2x\mu_1+\mu_1^2+2x\mu_1-\mu_1^2)dx \\
+&= \frac {1} {2\sigma_2^2} \int_{-\infty}^{+\infty} p(x)\bigg[(x-\mu_1)^2+2x(\mu_1-\mu_2)+(\mu_2^2-\mu_1^2) \bigg]dx \\
+&= \frac {1} {2\sigma_2^2}\bigg[\int_{-\infty}^{+\infty} p(x)(x-\mu_1)^2dx + 2(\mu_1-\mu_2)\int_{-\infty}^{+\infty} xp(x)dx
++ (\mu_2^2-\mu_1^2) \int_{-\infty}^{+\infty} p(x)dx \bigg] \\
+&= \frac {1} {2\sigma_2^2}\bigg[\int_{-\infty}^{+\infty} p(y)y^2dy
++ 2(\mu_1-\mu_2)E[x] + (\mu_2^2-\mu_1^2) \bigg] \\
+&= \frac {1} {2\sigma_2^2}\bigg[\sigma_1^2 + 2\mu_1^2 - 2\mu_1\mu_2 + \mu_2^2 - \mu_1^2  \bigg] \\
+&= \frac {\sigma_1^2 + (\mu_1-\mu_2)^2} {2\sigma_2^2}
+\end{aligned}
+$$
+
+带入可得：
+
+$$
+D_{KL}(p||q)
+= log \bigg( \frac {\sigma_2} {\sigma_1} \bigg)
++ \frac {\sigma_1^2 + (\mu_1-\mu_2)^2} {2\sigma_2^2}
+- \frac {1} {2} 
 $$
