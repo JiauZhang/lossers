@@ -101,7 +101,7 @@ $$
 &= \frac {1} {2\sigma_2^2} \int_{-\infty}^{+\infty} p(x)\bigg[(x-\mu_1)^2+2x(\mu_1-\mu_2)+(\mu_2^2-\mu_1^2) \bigg]dx \\
 &= \frac {1} {2\sigma_2^2}\bigg[\int_{-\infty}^{+\infty} p(x)(x-\mu_1)^2dx + 2(\mu_1-\mu_2)\int_{-\infty}^{+\infty} xp(x)dx
 + (\mu_2^2-\mu_1^2) \int_{-\infty}^{+\infty} p(x)dx \bigg] \\
-&= \frac {1} {2\sigma_2^2}\bigg[\int_{-\infty}^{+\infty} p(y)y^2dy
+&= \frac {1} {2\sigma_2^2}\bigg[D[x]
 + 2(\mu_1-\mu_2)E[x] + (\mu_2^2-\mu_1^2) \bigg] \\
 &= \frac {1} {2\sigma_2^2}\bigg[\sigma_1^2 + 2\mu_1^2 - 2\mu_1\mu_2 + \mu_2^2 - \mu_1^2  \bigg] \\
 &= \frac {\sigma_1^2 + (\mu_1-\mu_2)^2} {2\sigma_2^2}
