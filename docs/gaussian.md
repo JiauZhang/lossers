@@ -61,3 +61,12 @@ Var(x) &= E((x-E(x))^2) =\int_{-\infty}^{+\infty} (x-\mu)^2 f(x)dx = \int_{-\inf
 &= \sigma^2
 \end{aligned}
 $$
+
+### 多元高斯分布的KL散度
+定义$X$是一个$n\times1$为的随机向量，当$X$是一个具有均值$\mu$和方差$\Sigma$时，定义：
+
+$$
+X \sim \mathcal{N}(\mu, \Sigma) = \frac{1}{\sqrt{(2 \pi)^n |\Sigma|}} \cdot \exp \left[ -\frac{1}{2} (x-\mu)^\mathrm{T} \Sigma^{-1} (x-\mu) \right]
+$$
+
+其中$\Sigma$是$n \times n$的正定矩阵。

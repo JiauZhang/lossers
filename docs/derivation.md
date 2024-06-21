@@ -55,3 +55,43 @@ y_u^{'} & y_v^{'}
 &= |J|dudv
 \end{aligned}
 $$
+
+### 迹(Trace)的性质
+对于两个尺寸相同的矩阵$A_{m \times n},B_{m \times n}$，有如下性质：
+
+$$
+\begin{aligned}
+tr(A^TB) &=
+\begin{bmatrix}
+ a_{11} & a_{21} & a_{31} & \cdots & a_{m1} \\
+ a_{12} & a_{22} & a_{32} & \cdots & a_{m2} \\
+ a_{13} & a_{23} & a_{33} & \cdots & a_{m3} \\
+ \vdots & \vdots & \vdots & \cdots & \vdots \\
+ a_{1n} & a_{2n} & a_{3n} & \cdots & a_{mn}
+\end{bmatrix}_{n \times m}
+\begin{bmatrix}
+ b_{11} & b_{12} & b_{13} & \cdots & b_{1n} \\
+ b_{21} & b_{22} & b_{23} & \cdots & b_{2n} \\
+ b_{31} & b_{32} & b_{33} & \cdots & b_{3n} \\
+ \vdots & \vdots & \vdots & \cdots & \vdots \\
+ b_{m1} & b_{m2} & b_{m3} & \cdots & b_{mn}
+\end{bmatrix}_{m \times n} \\
+&=
+\begin{bmatrix}
+ \sum_{i=1}^ma_{i1}b_{i1} & \cdot & \cdot & \cdots & \cdot \\
+ \cdot & \sum_{i=1}^ma_{i2}b_{i2} & \cdot & \cdots & \cdot \\
+ \cdot & \cdot & \sum_{i=1}^ma_{i3}b_{i3} & \cdots & \cdot \\
+ \vdots & \vdots & \vdots & \cdots & \vdots \\
+ \cdot & \cdot & \cdot & \cdots & \sum_{i=1}^ma_{in}b_{in}
+\end{bmatrix}_{n \times n} \\
+&= {\sum}_{i,j}A_{i,j}B_{i,j} = A_{m \times n} \odot B_{m \times n} = tr(B^TA)
+\end{aligned}
+$$
+
+其中 $\odot$ 表示逐元素点成。
+
+### 标量对矩阵的导数
+$$
+df = \sum_{i=0}^m \sum_{j=0}^n \frac {\partial f} {\partial X_{ij}} dX_{ij}
+= \frac {\partial f} {\partial X} \odot dX = tr({\frac {\partial f} {\partial X}}^T dX)
+$$

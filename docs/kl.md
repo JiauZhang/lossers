@@ -23,12 +23,43 @@ H(p, q)
 =-\sum_{i=1}^{n}{p(x_i) log(q(x_i))}
 $$
 
+### 凸函数(Convex Function)
+如果对于函数$f(x)$域中任意$x,y,0 \le \theta \le 1$满足：
+
+$$
+f(\theta x + (1-\theta)y) \le \theta f(x) + (1-\theta) f(y)
+$$
+
+<div align="center"><img src="./images/kl-01.png" /></div>
+
+此类函数就叫凸函数。更一般的结论是：若$f(x)$区间$[a,b]$下的凸函数，则对任意$x_1,x_2,x_3,...,x_n \in [a,b]$，且$a_1+a_2+a_3+...+a_n=1$，$a_1,a_2,a_3,...,a_n$为正数，有：
+
+$$
+f(a_1x_1+a_2x_2+a_3x_3+...+a_nx_n) \le a_1f(x_1)+a_2f(x_2)+a_3f(x_3)+...+a_nf(x_n)
+$$
+
+当且仅当$x_1=x_2=x_3=...=x_n$时等号成立
+
 ### 詹森不等式(Jensen Inequality)
-定义$X$为随机变量，$\varphi$是凸函数，则有：
+根据凸函数一般结论中权重部分的定义，显然概率密度函数也是符合要求的。假设$\varphi[g(x)]$是一个符合要求的凸函数，再结合概率密度函数，则有：
+
+$$
+\varphi \bigg( \int_{-\infty}^{+\infty} g(x)f(x)dx \bigg) \le \int_{-\infty}^{+\infty} \varphi [g(x)]f(x)dx
+$$
+
+如果假设$g(x)=x$，则上式可简化为：
+
+$$
+\varphi \bigg( \int_{-\infty}^{+\infty} xf(x)dx \bigg) \le \int_{-\infty}^{+\infty} \varphi (x)f(x)dx
+$$
+
+定义$X$为随机变量，根据概率论中对期望的定义，则有：
 
 $$
 \varphi (E[X]) \le E[\varphi (X)]
 $$
+
+对于詹森不等式，一种朴素的理解：对于凸函数，任意两点的连线在函数曲线之上，则对函数值的加权平均仍然在这条直线上，即大于函数曲线上的值的；而如果先对两点之间的坐标值加权平均之后再求函数值，那么这个值必定在直线之下；简而言之，对点坐标对应的函数值的加权平均大于等于先对坐标加权平均后再求得的函数值。
 
 ### 相对熵(Relative entropy) or KL散度(Kullback-Leibler Divergence)
 $p(x)$是目标分布，$q(x)$是模型预测分布
