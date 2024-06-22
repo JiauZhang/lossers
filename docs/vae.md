@@ -48,13 +48,13 @@ $$
 trick)可以解决该问题，因为对于任意的正态分布，我们都可以通过标准正态分布变换得到：
 
 $$
-x = \mu + \sigma \epsilon \quad \mathrm{with} \; \epsilon \sim \mathcal{N}(\epsilon;0,I)
+z = \mu + \sigma \epsilon \quad \mathrm{with} \; \epsilon \sim \mathcal{N}(\epsilon;0,I)
 $$
 
 因此，在VAE中，$z$就可以表示成一个关于数据样本$x$和辅助噪声变量$\epsilon$的确定性函数：
 
 $$
-x = \mu_{\phi}(x) + \sigma_{\phi}(x) \epsilon \quad \mathrm{with} \; \epsilon \sim \mathcal{N}(\epsilon;0,I)
+z = \mu_{\phi}(x) + \sigma_{\phi}(x) \epsilon \quad \mathrm{with} \; \epsilon \sim \mathcal{N}(\epsilon;0,I)
 $$
 
 此时，梯度可以回传到编码器$\phi$中，进而优化$\mu_{\phi}$和$\sigma_{\phi}$，最终通过蒙特卡罗估计和重参数化优化基于$\phi$和$\theta$的$ELBO$。
