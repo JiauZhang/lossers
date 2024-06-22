@@ -147,3 +147,56 @@ D_{KL}(p||q)
 + \frac {\sigma_1^2 + (\mu_1-\mu_2)^2} {2\sigma_2^2}
 - \frac {1} {2} 
 $$
+
+#### 多元高斯分布的KL散度
+定义两个多元正态分布：
+
+$$
+\begin{split}
+P: \; x &\sim \mathcal{N}(\mu_1, \Sigma_1) \\
+Q: \; x &\sim \mathcal{N}(\mu_2, \Sigma_2) \;
+\end{split}
+$$
+
+根据概率论中对方差的定义可得：
+
+$$
+\begin{aligned}
+D(X) &= E[(X-E(X))(X-E(X))^T] = E[XX^T - E(X)X^T - XE^T(X) + E(X)E^T(X)] \\
+&= E[XX^T] - E(X)E(X^T) - E(X)E^T(X) + E(X)E^T(X) \\
+&= E[XX^T] - E(X)E(X^T)
+\end{aligned}
+$$
+
+由此可得：
+
+$$E[XX^T] = D(X) + E(X)E(X^T) = \Sigma + \mu\mu^T$$
+
+进一步计算KL散度为：
+
+$$
+\begin{aligned}
+\mathrm{KL}[P\,||\,Q] &= \int_{\mathcal{X}} p(x) \, \ln \frac{p(x)}{q(x)} \mathrm{d}x \\
+ &= \int_{\mathbb{R}^n} \mathcal{N}(x; \mu_1, \Sigma_1) \, \ln \frac{\mathcal{N}(x; \mu_1, \Sigma_1)}{\mathcal{N}(x; \mu_2, \Sigma_2)} \, \mathrm{d}x \\
+&= \left< \ln \frac{\mathcal{N}(x; \mu_1, \Sigma_1)}{\mathcal{N}(x; \mu_2, \Sigma_2)} \right>_{p(x)} \\
+&= \left< \ln \frac{ \frac{1}{\sqrt{(2 \pi)^n |\Sigma_1|}} \cdot \exp \left[ -\frac{1}{2} (x-\mu_1)^\mathrm{T} \Sigma_1^{-1} (x-\mu_1) \right] }{ \frac{1}{\sqrt{(2 \pi)^n |\Sigma_2|}} \cdot \exp \left[ -\frac{1}{2} (x-\mu_2)^\mathrm{T} \Sigma_2^{-1} (x-\mu_2) \right] } \right>_{p(x)} \\
+&= \left<\frac{1}{2} \ln \frac{|\Sigma_2|}{|\Sigma_1|} - \frac{1}{2} (x-\mu_1)^\mathrm{T} \Sigma_1^{-1} (x-\mu_1) + \frac{1}{2} (x-\mu_2)^\mathrm{T} \Sigma_2^{-1} (x-\mu_2) \right>_{p(x)} \\
+&= \frac{1}{2} \left< \ln \frac{|\Sigma_2|}{|\Sigma_1|} - (x-\mu_1)^\mathrm{T} \Sigma_1^{-1} (x-\mu_1) + (x-\mu_2)^\mathrm{T} \Sigma_2^{-1} (x-\mu_2) \right>_{p(x)} \\
+&= \frac{1}{2} \left< \ln \frac{|\Sigma_2|}{|\Sigma_1|} - \mathrm{tr}\left[ \Sigma_1^{-1} (x-\mu_1) (x-\mu_1)^\mathrm{T} \right] + \mathrm{tr}\left[ \Sigma_2^{-1} (x-\mu_2) (x-\mu_2)^\mathrm{T} \right] \right>_{p(x)} \\
+&= \frac{1}{2} \left< \ln \frac{|\Sigma_2|}{|\Sigma_1|} - \mathrm{tr}\left[ \Sigma_1^{-1} (x-\mu_1) (x-\mu_1)^\mathrm{T} \right] + \mathrm{tr}\left[ \Sigma_2^{-1} \left( x x^\mathrm{T} - 2 \mu_2 x^\mathrm{T} + \mu_2 \mu_2^\mathrm{T} \right) \right] \right>_{p(x)} \\
+&= \frac{1}{2} \left( \ln \frac{|\Sigma_2|}{|\Sigma_1|} - \mathrm{tr}\left[ \Sigma_1^{-1} \left< (x-\mu_1) (x-\mu_1)^\mathrm{T} \right>_{p(x)} \right] + \mathrm{tr}\left[ \Sigma_2^{-1} \left< x x^\mathrm{T} - 2 \mu_2 x^\mathrm{T} + \mu_2 \mu_2^\mathrm{T} \right>_{p(x)} \right] \right) \\
+&= \frac{1}{2} \left( \ln \frac{|\Sigma_2|}{|\Sigma_1|} - \mathrm{tr}\left[ \Sigma_1^{-1} \left< (x-\mu_1) (x-\mu_1)^\mathrm{T} \right>_{p(x)} \right] + \mathrm{tr}\left[ \Sigma_2^{-1} \left( \left< x x^\mathrm{T} \right>_{p(x)} - \left< 2 \mu_2 x^\mathrm{T} \right>_{p(x)} + \left< \mu_2 \mu_2^\mathrm{T} \right>_{p(x)} \right) \right] \right) \\
+&= \frac{1}{2} \left( \ln \frac{|\Sigma_2|}{|\Sigma_1|} - \mathrm{tr}\left[ \Sigma_1^{-1} \Sigma_1 \right] + \mathrm{tr}\left[ \Sigma_2^{-1} \left( \Sigma_1 + \mu_1 \mu_1^\mathrm{T} - 2 \mu_2 \mu_1^\mathrm{T} + \mu_2 \mu_2^\mathrm{T} \right) \right] \right) \\
+&= \frac{1}{2} \left( \ln \frac{|\Sigma_2|}{|\Sigma_1|} - \mathrm{tr}\left[ I_n \right] + \mathrm{tr}\left[ \Sigma_2^{-1} \Sigma_1 \right] + \mathrm{tr}\left[ \Sigma_2^{-1} \left( \mu_1 \mu_1^\mathrm{T} - 2 \mu_2 \mu_1^\mathrm{T} + \mu_2 \mu_2^\mathrm{T} \right) \right] \right) \\
+&= \frac{1}{2} \left( \ln \frac{|\Sigma_2|}{|\Sigma_1|} - n + \mathrm{tr}\left[ \Sigma_2^{-1} \Sigma_1 \right] + \mathrm{tr}\left[ \mu_1^\mathrm{T} \Sigma_2^{-1} \mu_1  - 2 \mu_1^\mathrm{T} \Sigma_2^{-1} \mu_2  + \mu_2^\mathrm{T} \Sigma_2^{-1} \mu_2 \right] \right) \\
+&= \frac{1}{2} \left[ \ln \frac{|\Sigma_2|}{|\Sigma_1|} - n + \mathrm{tr}\left[ \Sigma_2^{-1} \Sigma_1 \right] + (\mu_2 - \mu_1)^\mathrm{T} \Sigma_2^{-1} (\mu_2 - \mu_1) \right]
+\end{aligned}
+$$
+
+最后，整理可得：
+
+$$
+\mathrm{KL}[P\,||\,Q] = \frac{1}{2} \left[ (\mu_2 - \mu_1)^\mathrm{T} \Sigma_2^{-1} (\mu_2 - \mu_1) + \mathrm{tr}(\Sigma_2^{-1} \Sigma_1) - \ln \frac{|\Sigma_1|}{|\Sigma_2|} - n \right]
+$$
+
+> [Proof: Kullback-Leibler divergence for the multivariate normal distribution](https://statproofbook.github.io/P/mvn-kl.html)

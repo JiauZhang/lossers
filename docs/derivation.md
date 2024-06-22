@@ -88,7 +88,13 @@ tr(A^TB) &=
 \end{aligned}
 $$
 
-其中 $\odot$ 表示逐元素点成。
+其中 $\odot$ 表示逐元素点成。进一步可得迹的循环等价结论：
+
+$$
+tr(ABC)=tr(A(BC))=tr((BC)A)=tr(BCA)=tr(CAB)
+$$
+
+其中 $A_{m \times n},B_{n \times m},C_{m \times m}$。
 
 ### 标量对矩阵的导数
 $$
