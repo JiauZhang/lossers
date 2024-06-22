@@ -65,19 +65,19 @@ $$
 $p(x)$是目标分布，$q(x)$是模型预测分布
 
 $$
-D_{KL}(p||q)=KL[p(x)||q(x)]
+D_{KL}(p \parallel q)=KL[p(x) \parallel q(x)]
 ={\sum}_{x \in X} p(x) log \frac {p(x)} {q(x)}
 =E_{x \in p(x)}[log \frac {p(x)} {q(x)}]
 $$
 
 性质：
-- 当两个分布$p(x)$和$q(x)$相同时，$D_{KL}(p||q)=0$
-- 非对称性：$D_{KL}(p||q) \neq D_{KL}(q||p)$
-- 非负性：$D_{KL}(p||q) \ge 0$
+- 当两个分布$p(x)$和$q(x)$相同时，$D_{KL}(p \parallel q)=0$
+- 非对称性：$D_{KL}(p \parallel q) \neq D_{KL}(q \parallel p)$
+- 非负性：$D_{KL}(p \parallel q) \ge 0$
 
 $$
 \begin{aligned}
-D_{KL}(p||q)
+D_{KL}(p \parallel q)
 &=\sum_x p(x) log \frac {p(x)} {q(x)} \\
 &=-\sum_x p(x) log \frac {q(x)} {p(x)} \\
 &=-E_{p(x)}\Bigg[ log \frac {q(x)} {p(x)} \Bigg] \\
@@ -95,11 +95,11 @@ $$p(x) = \frac {1} {\sqrt{2 \pi \sigma_1^2}} e^{-\frac {(x-\mu_1)^2} {2 \sigma_1
 
 $$q(x) = \frac {1} {\sqrt{2 \pi \sigma_2^2}} e^{-\frac {(x-\mu_2)^2} {2 \sigma_2^2}}$$
 
-带入$D_{KL}(p||q)$可得：
+带入$D_{KL}(p \parallel q)$可得：
 
 $$
 \begin{aligned}
-D_{KL}(p||q) &= \int_{-\infty}^{+\infty} p(x) log \frac {p(x)} {q(x)} \\
+D_{KL}(p \parallel q) &= \int_{-\infty}^{+\infty} p(x) log \frac {p(x)} {q(x)} \\
 &=\int_{-\infty}^{+\infty} p(x) \bigg[
     \frac {(x-\mu_2)^2} {2 \sigma_2^2} -
     \frac {(x-\mu_1)^2} {2 \sigma_1^2} +
@@ -142,7 +142,7 @@ $$
 带入可得：
 
 $$
-D_{KL}(p||q)
+D_{KL}(p \parallel q)
 = log \bigg( \frac {\sigma_2} {\sigma_1} \bigg)
 + \frac {\sigma_1^2 + (\mu_1-\mu_2)^2} {2\sigma_2^2}
 - \frac {1} {2} 
@@ -176,7 +176,7 @@ $$E[XX^T] = D(X) + E(X)E(X^T) = \Sigma + \mu\mu^T$$
 
 $$
 \begin{aligned}
-\mathrm{KL}[P\,||\,Q] &= \int_{\mathcal{X}} p(x) \, \ln \frac{p(x)}{q(x)} \mathrm{d}x \\
+\mathrm{KL}[P \parallel Q] &= \int_{\mathcal{X}} p(x) \, \ln \frac{p(x)}{q(x)} \mathrm{d}x \\
  &= \int_{\mathbb{R}^n} \mathcal{N}(x; \mu_1, \Sigma_1) \, \ln \frac{\mathcal{N}(x; \mu_1, \Sigma_1)}{\mathcal{N}(x; \mu_2, \Sigma_2)} \, \mathrm{d}x \\
 &= \left< \ln \frac{\mathcal{N}(x; \mu_1, \Sigma_1)}{\mathcal{N}(x; \mu_2, \Sigma_2)} \right>_{p(x)} \\
 &= \left< \ln \frac{ \frac{1}{\sqrt{(2 \pi)^n |\Sigma_1|}} \cdot \exp \left[ -\frac{1}{2} (x-\mu_1)^\mathrm{T} \Sigma_1^{-1} (x-\mu_1) \right] }{ \frac{1}{\sqrt{(2 \pi)^n |\Sigma_2|}} \cdot \exp \left[ -\frac{1}{2} (x-\mu_2)^\mathrm{T} \Sigma_2^{-1} (x-\mu_2) \right] } \right>_{p(x)} \\
@@ -196,7 +196,7 @@ $$
 最后，整理可得：
 
 $$
-\mathrm{KL}[P\,||\,Q] = \frac{1}{2} \left[ (\mu_2 - \mu_1)^\mathrm{T} \Sigma_2^{-1} (\mu_2 - \mu_1) + \mathrm{tr}(\Sigma_2^{-1} \Sigma_1) - \ln \frac{|\Sigma_1|}{|\Sigma_2|} - n \right]
+\mathrm{KL}[P \parallel Q] = \frac{1}{2} \left[ (\mu_2 - \mu_1)^\mathrm{T} \Sigma_2^{-1} (\mu_2 - \mu_1) + \mathrm{tr}(\Sigma_2^{-1} \Sigma_1) - \ln \frac{|\Sigma_1|}{|\Sigma_2|} - n \right]
 $$
 
 > [Proof: Kullback-Leibler divergence for the multivariate normal distribution](https://statproofbook.github.io/P/mvn-kl.html)
