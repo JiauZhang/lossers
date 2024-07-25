@@ -1,16 +1,16 @@
 ### ELBO
 $$
 \begin{aligned}
-logp(x) &= logp(x) \int q_{\phi}(z|x)dz \\
-&= \int q_{\phi}(z|x)(logp(x))dz \\
-&= E_{q_{\phi}(z|x)}[logp(x)] \\
-&= E_{q_{\phi}(z|x)} \bigg[ log \frac {p(x, z)} {p(z|x)} \bigg] \\
-&= E_{q_{\phi}(z|x)} \bigg[ log \frac {p(x, z)q_{\phi}(z|x)} {p(z|x)q_{\phi}(z|x)} \bigg] \\
-&= E_{q_{\phi}(z|x)} \bigg[ log \frac {p(x, z)} {q_{\phi}(z|x)} \bigg] +
-E_{q_{\phi}(z|x)} \bigg[ log \frac {q_{\phi}(z|x)} {p(z|x)} \bigg] \\
-&= E_{q_{\phi}(z|x)} \bigg[ log \frac {p(x, z)} {q_{\phi}(z|x)} \bigg] +
+\mathrm{log}p(x) &= \mathrm{log}p(x) \int q_{\phi}(z|x)dz \\
+&= \int q_{\phi}(z|x)(\mathrm{log}p(x))dz \\
+&= E_{q_{\phi}(z|x)}[\mathrm{log}p(x)] \\
+&= E_{q_{\phi}(z|x)} \bigg[ \mathrm{log} \frac {p(x, z)} {p(z|x)} \bigg] \\
+&= E_{q_{\phi}(z|x)} \bigg[ \mathrm{log} \frac {p(x, z)q_{\phi}(z|x)} {p(z|x)q_{\phi}(z|x)} \bigg] \\
+&= E_{q_{\phi}(z|x)} \bigg[ \mathrm{log} \frac {p(x, z)} {q_{\phi}(z|x)} \bigg] +
+E_{q_{\phi}(z|x)} \bigg[ \mathrm{log} \frac {q_{\phi}(z|x)} {p(z|x)} \bigg] \\
+&= E_{q_{\phi}(z|x)} \bigg[ \mathrm{log} \frac {p(x, z)} {q_{\phi}(z|x)} \bigg] +
 D_{KL}(q_{\phi}(z|x) \parallel p(z|x)) \\
-&\ge \underbrace{E_{q_{\phi}(z|x)} \bigg[ log \frac {p(x, z)} {q_{\phi}(z|x)} \bigg]}_{ELBO}
+&\ge \underbrace{E_{q_{\phi}(z|x)} \bigg[ \mathrm{log} \frac {p(x, z)} {q_{\phi}(z|x)} \bigg]}_{ELBO}
 \end{aligned}
 $$
 
@@ -18,9 +18,9 @@ ELBO还可再进一步分解：
 
 $$
 \begin{aligned}
-ELBO & \overset{\mathrm{def}}{=} E_{q_{\phi}(z|x)} \bigg[ log \frac {p(x, z)} {q_{\phi}(z|x)} \bigg] = E_{q_{\phi}(z|x)} \bigg[ log \frac {p_{\theta}(x|z)p(z)} {q_{\phi}(z|x)} \bigg] \\
-&= E_{q_{\phi}(z|x)} [logp_{\theta}(x|z)] + E_{q_{\phi}(z|x)} \bigg[ log \frac {p(z)} {q_{\phi}(z|x)} \bigg] \\
-&= \underbrace{E_{q_{\phi}(z|x)} [logp_{\theta}(x|z)]}_{reconstruction \ term} - \underbrace{D_{KL}(q_{\phi}(z|x) \parallel p(z))}_{prior\ matching\ term}
+ELBO & \overset{\mathrm{def}}{=} E_{q_{\phi}(z|x)} \bigg[ \mathrm{log} \frac {p(x, z)} {q_{\phi}(z|x)} \bigg] = E_{q_{\phi}(z|x)} \bigg[ \mathrm{log} \frac {p_{\theta}(x|z)p(z)} {q_{\phi}(z|x)} \bigg] \\
+&= E_{q_{\phi}(z|x)} [\mathrm{log}p_{\theta}(x|z)] + E_{q_{\phi}(z|x)} \bigg[ \mathrm{log} \frac {p(z)} {q_{\phi}(z|x)} \bigg] \\
+&= \underbrace{E_{q_{\phi}(z|x)} [\mathrm{log}p_{\theta}(x|z)]}_{reconstruction \ term} - \underbrace{D_{KL}(q_{\phi}(z|x) \parallel p(z))}_{prior\ matching\ term}
 \end{aligned}
 $$
 
@@ -40,7 +40,7 @@ $$
 
 $$
 \begin{aligned}
-\underset{\phi,\theta} {\mathrm{arg\ max}}\ E_{q_{\phi}(z|x)} [\mathrm{log}p_{\theta}(x|z)] - D_{KL}(q_{\phi}(z|x) \parallel p(z)) \approx \underset{\phi,\theta} {\mathrm{arg\ max}} \sum_{l=1}^{L}\mathrm{log}p_{\theta}(x|z^{(l)}) - D_{KL}(q_{\phi}(z|x) \parallel p(z))
+\underset{\phi,\theta} {\mathrm{arg\ max}}\ E_{q_{\phi}(z|x)} [\mathrm{\mathrm{log}}p_{\theta}(x|z)] - D_{KL}(q_{\phi}(z|x) \parallel p(z)) \approx \underset{\phi,\theta} {\mathrm{arg\ max}} \sum_{l=1}^{L}\mathrm{\mathrm{log}}p_{\theta}(x|z^{(l)}) - D_{KL}(q_{\phi}(z|x) \parallel p(z))
 \end{aligned}
 $$
 
