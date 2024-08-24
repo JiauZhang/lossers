@@ -9,6 +9,12 @@ on:
     # Sequence of patterns matched against refs/tags
     tags:
       - v*
+    paths-ignore:
+      - examples/**
+      - docs/**
+      - LICENSE
+      - '**/*.md'
+      - '**/.gitignore'
 
 jobs:
   build-n-publish:
