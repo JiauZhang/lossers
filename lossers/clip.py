@@ -1,7 +1,6 @@
 import torch
 from torch.nn import functional as F_
 
-# from transformers/models/clip/modeling_clip.py
 def contrastive_loss(logits: torch.Tensor) -> torch.Tensor:
     return F_.cross_entropy(logits, torch.arange(len(logits), device=logits.device))
 
