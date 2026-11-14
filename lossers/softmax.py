@@ -2,8 +2,10 @@ import torch
 from torch import nn
 from torch.nn import functional as F_
 
+
 def softmax_loss(input, target, **kwargs):
     return F_.cross_entropy(input, target, **kwargs)
+
 
 class AMSoftmax(nn.Module):
     def __init__(self, in_dims, n_classes, m=0.35, s=30):
